@@ -45,12 +45,10 @@ router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
   }, 'sklad');
 
   var result = Object.entries(req.body);
-  console.log(result);
   for (let index = 0; index < result.length; index++) {
     element = result[index]; //element[0] mahsulot nomi element[1] mahsulot miqdor
     if (element[0] == 'discount')
       break;
-    console.log(element[0]);  
     await updateItem(element[0], element[1], req.user); // mahsulotni bazadan yechadi
     thisItem =  allItemsFromStorage[0].sklad.find(searchingElement=> searchingElement.name==element[0]);
    

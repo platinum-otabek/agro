@@ -86,8 +86,6 @@ router.post('/update',eAdmin, async(req, res, next)=> {
         res.redirect('/branch/item/update');
       })
   }
-  
- 
 });
 
 module.exports = router;

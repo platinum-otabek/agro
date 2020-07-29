@@ -16,7 +16,6 @@ $(document).ready(function () {
   $('.price').on('click', function (params) {
     sum = 0;
     var rows = document.getElementsByClassName("items");
-    console.log(rows);
     for (var i = 0; i < rows.length; i++) {
       name = rows[i].name;
       val = rows[i].value;
