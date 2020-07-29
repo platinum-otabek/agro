@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const moment = require('moment-timezone');
+const dateUzbekistan = moment.tz(Date.now(), "Asia/Tashkent");
 
 const commerceSchema = mongoose.Schema({
     items: {
@@ -30,7 +32,7 @@ const commerceSchema = mongoose.Schema({
     },
     createdAt:{
         type:Date,
-        default: Date.now()
+        default: dateUzbekistan
     }
 });
 
