@@ -1,0 +1,48 @@
+extends ../layout 
+block content
+    
+    form.form-horizontal(action='/debt/create' method='POST')
+        .form-group
+            label.control-label.col-sm-2(for='seria') Passport Seria:
+            .col-sm-8
+                input#seria.form-control(type='text',required name='passport_id' placeholder='Passport Seriaya (AA1234567)')
+        .form-group
+            label.control-label.col-sm-2(for='name') Ismi:
+            .col-sm-8
+                input#name.form-control(type='text',required name='name' placeholder='Ismni kiriting')
+        .form-group
+            label.control-label.col-sm-2(for='number') No`mer:
+            .col-sm-8
+                input#number.form-control(type='text',required name='number' placeholder='Telefon raqamni kiriting')
+        .form-group
+            label.control-label.col-sm-2(for='allsum') Jami to`lov:
+            .col-sm-8
+                input#allsum.form-control(type='number',required name='allsum' placeholder='Jami mahsulotlarning summasi')
+        .form-group
+            label.control-label.col-sm-2(for='debtsum') Qarzdorlik sum:
+            .col-sm-8
+                input#allsum.form-control(type='number',required name='debtsum' placeholder='Qarz bo`lgan summa')
+        .form-group
+            label.control-label.col-sm-2(for='allitems') Olingan mahsulotlar:
+            .col-sm-8
+                textarea#allitems.form-coltrol(cols="70", rows="5" required name='allitems' placeholder='Jami olingan mahsulotlar')
+        input(type="hidden" class='token' name='token')
+        if branches
+            .form-group
+                label.control-label.col-sm-2(for='hudud') Hududni tanlang:
+                .col-sm-8
+                    select#hudud.form-control(name="hudud")
+                        each branch in branches
+                            if branch.name
+                                option(value= branch.name)= branch.name
+                    
+        .form-group
+            .col-sm-offset-2.col-sm-10
+                button.btn.btn-default(type='submit') Kiritish
+    script. 
+        var token = !{JSON.stringify(token)};
+
+append javascripts
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+    script(src="/javascripts/token.js")                
+

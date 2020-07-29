@@ -1,0 +1,30 @@
+extends ../layout 
+block content
+    
+    table.tableItems.table.table-bordered.table-striped.mb-4
+        thead
+            tr
+                th(scope='col')|#
+                th(scope='col')|Sum
+                th(scope='col')|Naqd
+                th(scope='col')|Terminal
+                th(scope='col')|Discount
+                th(scope='col')|Qarzdorlik
+                th(scope='col')|Mahsulotlar
+                th(scope='col')|Date
+        tbody        
+        each commerce,index in commerces
+            tr
+                td= index+1  
+                td.numbers= commerce.allSum  
+                td(class='naqd numbers')= commerce.naqd 
+                td(class='terminal numbers')= commerce.terminal 
+                td.numbers= commerce.discount 
+                td.numbers= commerce.debt 
+                td= commerce.items 
+                td= commerce.createdAt  
+    p.allSum.numbers
+    p.allTerminal.numbers
+append javascripts
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+    script(src="/javascripts/digit.js")

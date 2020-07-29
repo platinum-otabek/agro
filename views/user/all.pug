@@ -1,0 +1,40 @@
+extends ../layout 
+block content
+    p 
+        a.btn.btn-primary(href="/user/create") Xodim qo`shish
+    table#tableItems.table.table-bordered.table-striped.mb-0
+        thead
+            tr
+                if user.status == 'super'
+                    th(scope='col')|#
+                    th(scope='col')|Ismi
+                    th(scope='col')|Telefon raqami
+                    th(scope='col')|Parol 
+                    th(scope='col')|Hudud 
+                    th(scope='col')|O`chirish
+                if user.status == 'king'
+                    th(scope='col')|#
+                    th(scope='col')|Ismi
+                    th(scope='col')|Parol 
+                    th(scope='col')|Status 
+                    th(scope='col')|O`chirish    
+        each users,index in allusers
+            tbody
+                if users.status == 'admin' && user.status== "super"
+                    tr
+                        td= index+1
+                        td= users.name
+                        td= users.number
+                        td= users.password
+                        td= users.hudud  
+                        td 
+                            a.btn.btn-danger.m-2(href="/user/delete/"+user._id) o`chirish
+                if (users.status == 'king' || users.status == 'super') && user.status== "king"
+                    tr
+                        td= index+1
+                        td= users.name
+                        td= users.password
+                        td= users.status 
+                        td 
+                            a.btn.btn-danger.m-2(href="/user/delete/"+user._id) o`chirish
+

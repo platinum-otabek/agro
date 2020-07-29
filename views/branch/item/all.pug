@@ -1,0 +1,13 @@
+extends ../../layout 
+block content
+    p.controlItem 
+        a.btn.btn-primary.col.col-md-4(href="/branch/item/create") Mahsulot qo`shish
+        a.btn.btn-warning.col.col-md-4(href="/branch/item/update") Mahsulotlarni o`zgartirish
+    table.table.table
+        tr
+                th  Mahsulot nomi
+                th  Mahsulot miqdori   
+        each item in items.sklad
+            tr
+                td= item.name 
+                td= item.amount   

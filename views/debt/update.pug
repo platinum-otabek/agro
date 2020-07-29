@@ -1,0 +1,44 @@
+extends ../layout 
+block content
+   
+    form.form-horizontal(action='/debt/update/' + historyDebts._id method='POST')
+        input(type="hidden" class='token' name='token')
+        .form-group
+                label.control-label.col-sm-2(for='sum') Olingan sum:
+                .col-sm-8
+                     input#sum.form-control(type='number',required name='sum' placeholder='Olingan mablag`ni kiriting')
+        .form-group
+            .col-sm-offset-2.col-sm-10
+                button.btn.btn-default(type='submit') Kiritish
+    ul.list-group
+        li.list-group-item|Passport Seria: #{historyDebts.passport_id}
+        li.list-group-item|Qarzdor: #{historyDebts.name}
+        li.list-group-item|No`mer:  #{historyDebts.number}
+        li.list-group-item.numbers|Jami savdo: #{historyDebts.allsum}
+        li.list-group-item.numbers|Jami qarzdorlik:
+            p.allDebtSum #{historyDebts.debtsum}
+        li.list-group-item.numbers|Qolgan  qarzdorlik: 
+            p.allSum
+
+    table#tableItems.table.table-bordered.table-striped.mb-0
+        thead
+            tr
+                th(scope='col')|#
+                th(scope='col')|Xodim
+                th(scope='col')|Berilgan mablag`
+                th(scope='col')|Kun
+        each debt,index in historyDebts.history
+            tbody
+                tr#passport_id
+                    td= index+1
+                    td= debt.taken_name
+                    td.debtSum.numbers= debt.sum
+                    td= debt.date 
+    script. 
+        var token = !{JSON.stringify(token)};
+append javascripts
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+    script(src="/javascripts/debt.js")
+    script(src="/javascripts/digit.js")
+    script(src="/javascripts/token.js")
+    

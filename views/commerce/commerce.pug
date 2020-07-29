@@ -1,0 +1,69 @@
+extends ../layout 
+append stylesheets
+    link(rel="stylesheet", href="/stylesheets/commerce.css")
+block content
+    input.p-3#filterTable(type="text")
+    div(class="wrapper-scroll-y my-table-scrollbar")    
+        table#tableItems.table.table-bordered.table-striped.mb-0
+            thead
+                tr
+                    th(scope='col')|#
+                    th(scope='col')|Mahsulot Nomi
+                    th(scope='col')|Miqdori
+                    th(scope='col')|Narxi 
+                    th(scope='col')|Qo`shish
+            each item,index in data.sklad
+                tbody
+                    tr#items
+                        td(scope='col') #{index+1}
+                        td(scope='col') #{item.name}
+                        td(scope='col') #{item.amount}
+                        td(scope='col') #{item.price}    
+                        td.btn.btn-primary.text-center.add(id=item.name class='add' scope='col') add    
+    hr
+    div.sum
+        p.align-center| Sotib olingan mahsulotlar: 
+        p.allSum
+        btn.price.btn.btn-sm.btn-primary Hisoblamoq
+    form(action="/commerce" method="POST")
+        
+        div(class="wrapper-scroll-y my-item-scrollbar")
+            table.all.table.table-bordered.table-striped.mb-0
+                thead
+                    tr
+                        th(scope='col')|Mahsulot Nomi
+                        th(scope='col')|Miqdori
+                        th(scope='col')|Narxi 
+                        th(scope='col')|O`chirish
+                tbody#addedItems 
+        hr
+        .form-group
+            label.control-label.col-sm-2(for='discount') Discount:
+            .col-sm-9
+                input#discount.form-control(type='number',required value=0 name='discount' placeholder='')
+        .form-group
+            label.control-label.col-sm-2(for='naqd') Naqd:
+            .col-sm-9
+                input#naqd.form-control(type='number',required value=0 name='naqd' placeholder='Naqd pulni kiriting')
+        .form-group
+            label.control-label.col-sm-2(for='terminal') Terminal:
+            .col-sm-9
+                input#terminal.form-control(type='number',required value=0 name='terminal' placeholder='terminal pulni kiriting')
+        .form-group
+                    label.control-label.col-sm-2(for='debt') Qarzdorlik:
+                    .col-sm-9
+                        input#debt.form-control(type='number',required value=0 name='debt' placeholder='Qarzdorlikni kiriting')
+        .form-group
+            .col-sm-offset-2.col-sm-10
+                button.btn.btn-default(type='submit') Kiritish
+        input(type="hidden" class='token' name='token')        
+                
+
+    script. 
+        var data = !{JSON.stringify(data.sklad)};
+        var token = !{JSON.stringify(token)};
+
+append javascripts
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+    script(src="/javascripts/commerce.js")
+    script(src="/javascripts/token.js")

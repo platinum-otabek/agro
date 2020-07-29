@@ -1,0 +1,10 @@
+extends ../layout 
+block content
+    p 
+        a.btn.btn-primary(href="/item/create") Mahsulot qo`shish
+    table.table.table
+        each item in items
+            tr
+                td= item.name  
+                td 
+                    a.btn.btn-danger(href="/item/delete/"+item._id) delete

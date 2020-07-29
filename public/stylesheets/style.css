@@ -1,0 +1,17 @@
+body{
+  background-color: #e8fafe;
+}
+
+.navbar{
+  border-radius: 0;
+}
+
+.controlItem{
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.remain0debtSum{
+  
+}

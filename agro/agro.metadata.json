@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"agro.agro"}],"uuid":"6c91745193bc454b838c85d4e4233dee"}

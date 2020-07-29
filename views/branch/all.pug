@@ -1,0 +1,11 @@
+extends ../layout 
+block content
+    p 
+        if user.status == 'king'
+            a.btn.btn-primary(href="/branch/create") Filial qo`shish   
+    table.table.table
+        each branch in branchs
+            tr
+                td= branch.name  
+                td 
+                    a.btn.btn-danger.m-2(href="/branch/delete/"+branch._id) o`chirish

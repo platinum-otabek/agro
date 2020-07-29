@@ -1,0 +1,28 @@
+.my-table-scrollbar {
+    position: relative;
+    height: 150px;
+    overflow: auto;
+    margin-top: 20px;
+}
+
+.wrapper-scroll-y {
+    display: block;
+}
+
+.my-item-scrollbar {
+    position: relative;
+    height: 140px;
+    overflow: auto;
+    margin-top: 10px;
+}
+.sum{
+    margin-bottom: 12px;
+    display: flex;
+    font-size: 2rem;
+    justify-content: space-around;
+    align-items: center;
+}
+.price{
+    width: 30%;
+    font-size: 2rem;
+}

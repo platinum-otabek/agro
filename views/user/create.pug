@@ -1,0 +1,48 @@
+extends ../layout 
+block content
+    
+    form.form-horizontal(action='/user/create' method='POST')
+        .form-group
+            label.control-label.col-sm-2(for='name') Xodimning nomi:
+            .col-sm-8
+                input#name.form-control(type='text',required name='name' placeholder='xodimning nomini kiriting')
+        .form-group
+            label.control-label.col-sm-2(for='pswd') Xodimning paroli:
+            .col-sm-8
+                input#pswd.form-control(type='text',required name='pass' placeholder='xodimning parolini kiriting')
+        
+        input(type="hidden" class='token' name='token')
+        if user.status == 'king'
+            .form-group
+                label.control-label.col-sm-2(for='pswd') Xodim statusini tanlang:
+                .col-sm-8
+                    select.form-control(name="status")
+                        option(value="super")|super
+                        option(value="king")|king
+        else if user.status == 'super'
+                    .form-group
+                        label.control-label.col-sm-2(for='number') Xodimning telefon raqami:
+                        .col-sm-8
+                            input#number.form-control(type='text',required name='number' placeholder='xodimning telefon raqamini kiriting')
+                    .form-group
+                        label.control-label.col-sm-2(for='hudud') Hududni tanlang:
+                        .col-sm-8
+                            select#hudud.form-control(name="hudud")
+                                each branch in branchs
+                                    option(value= branch.name)= branch.name
+                    .form-group
+                        label.control-label.col-sm-2(for='pswd') Xodim statusini tanlang:
+                        .col-sm-8
+                            select.form-control(name="status")
+                                option(value="admin")|admin
+        .form-group
+            .col-sm-offset-2.col-sm-10
+                button.btn.btn-default(type='submit') Kiritish
+
+    script. 
+        var token = !{JSON.stringify(token)};
+
+append javascripts
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+    script(src="/javascripts/commerce.js")
+    script(src="/javascripts/token.js")
