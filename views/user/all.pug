@@ -28,7 +28,7 @@ block content
                         td= users.password
                         td= users.hudud  
                         td 
-                            a.btn.btn-danger.m-2(href="/user/delete/"+user._id) o`chirish
+                            a.btn.btn-danger.m-2(href="/user/delete/"+users._id) o`chirish
                 if (users.status == 'king' || users.status == 'super') && user.status== "king"
                     tr
                         td= index+1
@@ -36,5 +36,5 @@ block content
                         td= users.password
                         td= users.status 
                         td 
-                            a.btn.btn-danger.m-2(href="/user/delete/"+user._id) o`chirish
+                            a.btn.btn-danger.m-2(href="/user/delete/"+users._id) o`chirish
 
