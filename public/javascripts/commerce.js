@@ -33,7 +33,7 @@ $(document).ready(function () {
       "<tr>\
           <td scope='col'>" + name + "</td>\
           <td  scope='col'>\
-            <input type='number' class='items' value=0 min=0 max='" + searchingData.amount + "'  name='" + name + "'/>\
+            <input type='text' class='items' value=0 min=0 max='" + searchingData.amount + "'  name='" + name + "'/>\
           </td>\
           <td scope='col'>" + searchingData.price + "   </td>\
           <td class=' text-center' id='" + name + "'  scope='col'><a href='javascript:void(0);' class='btn btn-danger deleted'>delete</a></td>\
