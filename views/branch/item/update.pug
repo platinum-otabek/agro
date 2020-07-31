@@ -18,7 +18,12 @@ block content
         .form-group
                 label.control-label.col-sm-2(for='amount') Mahsulot miqdori:
                 .col-sm-8
-                     input#name.form-control(type='number',required name='amount' placeholder='mahsulot miqdorini kiriting')
+                     input#name.form-control(type='number',required name='amount' step=0.01 min=0 placeholder='mahsulot miqdorini kiriting')
+        .form-group
+            label.control-label.col-sm-2(for='price') Mahsulot narxi:
+            .col-sm-8
+                input#price.form-control(type='number',required name='price' min=0 placeholder='mahsulot narxini kiriting')
+        
         .form-group
             .col-sm-offset-2.col-sm-10
                 button.btn.btn-default(type='submit') Kiritish

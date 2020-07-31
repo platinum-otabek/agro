@@ -63,7 +63,6 @@ router.post('/create', eAdmin,verifyToken,async(req, res, next)=> {
 // branch/item/update
 router.get('/update',eAdmin, async(req, res, next)=> {
  await Branch.findOne({name: req.user.hudud},'sklad',(err,branchItems)=>{
-   console.log(branchItems);
   res.render('branch/item/update',{items:branchItems,token:global.token});
  })
 });
@@ -71,14 +70,25 @@ router.get('/update',eAdmin, async(req, res, next)=> {
 /* POST update item in branch. */
 // branch/item/update
 router.post('/update',eAdmin, async(req, res, next)=> {
-  const {name,amount,addsub} = req.body;
+  const {name,amount,addsub,price} = req.body;
   changingAmount = parseFloat(amount);
   changingAmount = parseFloat(changingAmount/2);
+  await Branch.updateMany(
+    {name:req.user.hudud,'sklad.name':name},
+      {
+        '$set':
+        {'sklad.$.price': price },
+      });
   if(addsub == 'sub'){
-      await Branch.updateOne({'sklad.name':name,name:req.user.hudud},{$inc:{'sklad.$.amount': -changingAmount }},(err,item)=>{
+      await Branch.updateMany(
+        {name:req.user.hudud,'sklad.name':name},
+          {
+            '$inc':
+            {'sklad.$.amount': -changingAmount },
+          },(err,item)=>{
         res.redirect('/branch/item/update');
-      })
-  }
+      });
+}
   else{
       await Branch.updateOne({'sklad.name':name,name:req.user.hudud},{$inc:{'sklad.$.amount': changingAmount }},(err,item)=>{
         if(err)

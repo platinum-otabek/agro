@@ -43,8 +43,11 @@ router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
   allItemsFromStorage = await Branch.find({
     'name': req.user.hudud
   }, 'sklad');
-
-  var result = Object.entries(req.body);
+  //get time 
+  const utc = new Date();
+  utc.setHours( utc.getHours() + 5);
+  //******** */
+  const  result = Object.entries(req.body);
   for (let index = 0; index < result.length; index++) {
     element = result[index]; //element[0] mahsulot nomi element[1] mahsulot miqdor
     if (element[0] == 'discount')
@@ -64,7 +67,9 @@ router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
     'terminal':req.body.terminal,
     'discount':req.body.discount, 
     'hudud':req.user.hudud,   
-    'debt':req.body.debt   
+    "transferMoney":req.body.transfer,
+    'debt':req.body.debt,
+    "createdAt":utc   
   });
   newCommerce.save((err)=>{
     if(err){

@@ -2,7 +2,7 @@ extends ../layout
 append stylesheets
     link(rel="stylesheet", href="/stylesheets/commerce.css")
 block content
-    input.p-3#filterTable(type="text")
+    input.p-3#filterTable.filtername(type="text")
     div(class="wrapper-scroll-y my-table-scrollbar")    
         table#tableItems.table.table-bordered.table-striped.mb-0
             thead
@@ -49,6 +49,10 @@ block content
             label.control-label.col-sm-2(for='terminal') Terminal:
             .col-sm-9
                 input#terminal.form-control(type='number',required value=0 name='terminal' placeholder='terminal pulni kiriting')
+        .form-group
+            label.control-label.col-sm-2(for='transfer') Перечесления:
+            .col-sm-9
+                input#transfer.form-control(type='number',required value=0 name='transfer' placeholder='Ko`chirilgan pul miqdorini kiriting')
         .form-group
                     label.control-label.col-sm-2(for='debt') Qarzdorlik:
                     .col-sm-9

@@ -8,6 +8,7 @@ block content
                 th(scope='col')|Sum
                 th(scope='col')|Naqd
                 th(scope='col')|Terminal
+                th(scope='col')|Перечесления
                 th(scope='col')|Discount
                 th(scope='col')|Qarzdorlik
                 th(scope='col')|Mahsulotlar
@@ -19,6 +20,7 @@ block content
                 td.numbers= commerce.allSum  
                 td(class='naqd numbers')= commerce.naqd 
                 td(class='terminal numbers')= commerce.terminal 
+                td(class='numbers')= commerce.transferMoney 
                 td.numbers= commerce.discount 
                 td.numbers= commerce.debt 
                 td= commerce.items 

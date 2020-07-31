@@ -3,9 +3,6 @@ const mongoose = require('mongoose');
 const moment = require('moment-timezone');
 const dateUzbekistan = moment.tz(Date.now(), "Asia/Tashkent");
 
-const utc = new Date();
-utc.setHours( utc.getHours() + 5);
-
 const debtSchema = mongoose.Schema({
     passport_id: {
         type: String, lowercase:true,
@@ -40,11 +37,11 @@ const debtSchema = mongoose.Schema({
         sum:{type:Number},
         taken_name:{type:String},
         date:{type:Date,
-            default: utc}
+           }
     }],
     createdAt:{
         type:Date,
-        default: utc
+       
     }
 });
 

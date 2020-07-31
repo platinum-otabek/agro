@@ -33,6 +33,10 @@ router.get('/create',eA, async(req, res, next)=> {
         }
   });
 router.post('/create',eA,verifyToken,(req,res,next)=>{
+    //get time 
+    const utc = new Date();
+    utc.setHours( utc.getHours() + 5);
+    //******** */
     const {passport_id,name,number,allsum,debtsum,allitems} = req.body;
     const hudud = req.user.hudud || req.body.hudud;
     
@@ -43,7 +47,8 @@ router.post('/create',eA,verifyToken,(req,res,next)=>{
         allsum,
         debtsum,
         'items':allitems,
-        hudud,        
+        hudud, 
+        'createdAt':utc       
     });
     newDebt.save((err)=>{
         if(err)
@@ -70,12 +75,17 @@ router.get('/update/:id',eA, async(req, res, next)=> {
 /* POST update debt  . */
 // debt/update/id
 router.post('/update/:id',eA,verifyToken, (req, res, next)=> { 
+    //get time 
+    const utc = new Date();
+    utc.setHours( utc.getHours() + 5);
+    //******** */
     const {sum} = req.body; 
     Debt.updateOne({'_id':req.params.id},{
         $push:{
             history:{
                 'taken_name':req.user.name,
-                'sum':sum
+                'sum':sum,
+                'date':utc
             }
         }
     },(err)=>{

@@ -33,7 +33,7 @@ $(document).ready(function () {
       "<tr>\
           <td scope='col'>" + name + "</td>\
           <td  scope='col'>\
-            <input type='text' class='items' value=0 min=0 max='" + searchingData.amount + "'  name='" + name + "'/>\
+            <input type='number' class='items' step=0.01 value=0 min=0 max='" + searchingData.amount + "'  name='" + name + "'/>\
           </td>\
           <td scope='col'>" + searchingData.price + "   </td>\
           <td class=' text-center' id='" + name + "'  scope='col'><a href='javascript:void(0);' class='btn btn-danger deleted'>delete</a></td>\
@@ -55,7 +55,7 @@ $(document).ready(function () {
     $(this).parent().parent().remove();
     var item = $(this).parent().parent('td')['prevObject'][0]['id'];
     allAddedItems = allAddedItems.filter(element => element != item);
-
-  })
+  });
+  
 
 });

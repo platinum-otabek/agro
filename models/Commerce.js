@@ -17,11 +17,16 @@ const commerceSchema = mongoose.Schema({
     },
     terminal: {
         type: Number,
-        required:true
+        required:true,
+        default:0
     },
     discount:{
         type: Number,
         required: true,
+        default:0
+    },
+    transferMoney:{
+        type:Number,
         default:0
     },
     hudud:{
