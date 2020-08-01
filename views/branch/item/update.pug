@@ -7,7 +7,7 @@ block content
             .col-sm-8
                select.form-control(name="name")
                     each item in items.sklad
-                        option(value= item.name)|#{item.name} / #{item.amount}
+                        option(value= item.name)|#{item.name} / #{item.amount.toFixed(2)}
 
         .form-group
             label.control-label.col-sm-2(for='name') Mahsulot +/-:
