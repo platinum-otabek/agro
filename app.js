@@ -20,6 +20,7 @@ const branchRouter = require('./routes/branch/controlBranch');
 const commerceRouter = require('./routes/commerce/controlCommerce');
 const branchControlRouter = require('./routes/branch/controlBranchItem'); // filialdagi mahsulot
 const debtRouter = require('./routes/debt/controlDebt');
+const expenseRouter = require('./routes/expense/controlExpense');
 const app = express();
 
 
@@ -90,6 +91,7 @@ app.use('/branch', branchRouter);
 app.use('/branch/item', branchControlRouter);
 app.use('/commerce', commerceRouter);
 app.use('/debt', debtRouter);
+app.use('/expense', expenseRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

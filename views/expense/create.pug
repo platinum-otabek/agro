@@ -1,0 +1,27 @@
+extends ../layout 
+block content
+    form.form-horizontal(action='/expense/create' method='POST')
+        .form-group
+            label.control-label.col-sm-2(for='reason') Sabab:
+            .col-sm-8
+                textarea#reason.form-control(name="reason", cols="10", rows="3" placeholder='olgan yoki qo`ygan pulingizning sababini kiriting')
+        .form-group
+            label.control-label.col-sm-2(for='price') Sum:
+            .col-sm-8
+                input#price.form-control(type='number',required name='price' placeholder='sumni kiriting')
+        .form-group
+            label.control-label.col-sm-2(for='reasontype') Turi:
+            .col-sm-8
+                select#reasontype.form-control(name="reasontype")
+                    option(value="get")|kassadan oldim
+                    option(value="put")|kassaga qo`ydim
+        input(type="hidden" class='token' name='token')                   
+        .form-group
+            .col-sm-offset-2.col-sm-10
+                button.btn.btn-default(type='submit') Kiritish
+    script. 
+        var token = !{JSON.stringify(token)};
+
+append javascripts
+    
+    script(src="/javascripts/token.js") 

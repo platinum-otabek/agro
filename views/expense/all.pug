@@ -1,0 +1,29 @@
+extends ../layout 
+block content
+    
+    table.tableItems.table.table-bordered.table-striped.mb-4
+        thead
+            tr
+                th(scope='col')|#
+                th(scope='col')|Sum
+                th(scope='col')|Sabab
+                th(scope='col')|Olgan/Qo`ygan
+                th(scope='col')|Xodim
+                th(scope='col')|Hudud
+                th(scope='col')|Kun
+        tbody        
+        each expense,index in expenses
+            tr
+                td= index+1  
+                td.numbers= expense.price  
+                td(class='numbers')= expense.reason
+                if expense.reasonType == 'get'   
+                    td(class='text-danger')| Olgan 
+                else    
+                    td(class='text-primary')| Qo`ygan            
+                td= expense.name 
+                td= expense.hudud 
+                td= expense.createdAt 
+append javascripts
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+    script(src="/javascripts/digit.js")

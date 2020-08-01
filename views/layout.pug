@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
   head
-    title Tizimga kirish
+    title= title
     meta(charset='UTF-8')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     // ===============================================================================================
@@ -52,7 +52,17 @@ html(lang='en')
                 li
                   a(href='/branch/item/create') Mahsulot qo`shish   
             li
-              a(href='/debt/all') Qarzdorlik  
+              a(href='/debt/all') Qarzdorlik
+            ul.nav.navbar-nav.mr-auto
+              li.nav-item.dropdown
+                a#navbarDropdown.nav-link.dropdown-toggle(href='/expense', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                  |Xarajatlar
+                  span.caret
+                ul.dropdown-menu
+                  li
+                    a(href='/expense/show')|Xarajatlar
+                  li
+                    a(href='/expense/create') Xarajat qo`shish    
           ul.nav.navbar-nav.navbar-right  
             if user
               if user.status == 'super' || user.status == 'king'         
