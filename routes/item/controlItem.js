@@ -11,14 +11,14 @@ const verifyToken = require('../../middleware/verifyToken');
 // item/all
 router.get('/all',eS, (req, res, next)=> {
   Item.find({},(err,items)=>{
-    res.render('item/all',{items:items});
+    res.render('item/all',{title:'Hamma mahsulotlar',items:items});
   })
 });
 
 /* GET create new item. */
 // item/create
 router.get('/create',eS, (req, res, next)=> {
-  res.render('item/create',{token:global.token});
+  res.render('item/create',{title:'Mahsulot qo`shish',token:global.token});
 });
 
 /* POST create new item. */
@@ -29,7 +29,7 @@ router.post('/create',eS,verifyToken, (req, res, next)=> {
   const errors = req.validationErrors();
   if(errors)
     {
-      res.render('item/create',{errors:errors});
+      res.render('item/create',{title:'Mahsulot qo`shish',errors:errors});
     }
     else{
         const newItem = new Item({
@@ -41,11 +41,11 @@ router.post('/create',eS,verifyToken, (req, res, next)=> {
           if(err)
             {
               req.flash('danger','Mahsulot yuklanmadi mahsulot nomini bazadan tekshirib qayta urunib ko`ring');
-              res.render('item/create');
+              res.render('item/create',{title:'Mahsulot qo`shish',});
             }
           else{
             req.flash('info','Mahsulot muvaffaqiyatli yuklandi');
-            res.render('item/create');
+            res.render('item/create',{title:'Mahsulot qo`shish',});
           }
         })
     }

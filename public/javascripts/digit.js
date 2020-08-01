@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    let allNaqd=0,allTerminal=0;
+    let allNaqd=0,allTerminal=0,allTransferMoney=0;
     $(".naqd").each(function() {
         allNaqd+=parseFloat( $(this).text());
         $('.allSum').text('Jami naqd pul: ' + allNaqd +' so`m');
@@ -7,6 +7,10 @@ $(document).ready(function() {
      $(".terminal").each(function() {
         allTerminal+=parseFloat( $(this).text());
         $('.allTerminal').text('Jami terminal pul: ' + allTerminal + ' so`m');
+     }); 
+     $(".transferMoney").each(function() {
+        allTransferMoney+=parseFloat( $(this).text());
+        $('.allTransferMoney').text('Jami перечесления pul: ' + allTransferMoney + ' so`m');
      }); 
     $(".numbers").each(function() {
        nStr = $(this).text();

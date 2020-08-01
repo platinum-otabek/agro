@@ -13,14 +13,14 @@ const verifyToken = require('../../middleware/verifyToken');
 router.get('/all',eS, (req, res, next)=> { 
  
     Branch.find({},(err,branchs)=>{
-      res.render('branch/all',{branchs:branchs});
+      res.render('branch/all',{title:'Hamma filiallar',branchs:branchs});
     })
   });
 
 /* GET create new branch. */
 // branch/create
 router.get('/create',eK, (req, res, next)=> {
-    res.render('branch/create',{token:global.token});
+    res.render('branch/create',{title:'Filial qo`shish',token:global.token});
 });
  
 /* POST create new item. */
@@ -31,7 +31,7 @@ router.post('/create',eK,verifyToken, (req, res, next)=> {
   const errors = req.validationErrors();
   if(errors)
     {
-      res.render('branch/create',{errors:errors});
+      res.render('branch/create',{title:'Filial qo`shish',errors:errors});
     }
     else{
         const newBranch = new Branch({
@@ -43,11 +43,11 @@ router.post('/create',eK,verifyToken, (req, res, next)=> {
             {
               console.log(err);
               req.flash('danger','Filial yuklanmadi filial nomini bazadan tekshirib qayta urunib ko`ring');
-              res.render('branch/create');
+              res.render('branch/create',{title:'Filial qo`shish'});
             }
           else{
             req.flash('info','Filial muvaffaqiyatli yuklandi');
-            res.redirect('/branch/all');
+            res.redirect('/branch/all',{title:'Hamma filiallar'});
           }
         })
     }

@@ -15,7 +15,7 @@ block content
         each expense,index in expenses
             tr
                 td= index+1  
-                td.numbers= expense.price  
+                td.expense.numbers= expense.price  
                 td(class='numbers')= expense.reason
                 if expense.reasonType == 'get'   
                     td(class='text-danger')| Olgan 
@@ -24,6 +24,6 @@ block content
                 td= expense.name 
                 td= expense.hudud 
                 td= expense.createdAt 
+    p.numbers|Jami: #{allExpense}           
 append javascripts
-    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
-    script(src="/javascripts/digit.js")
+    script(src="/javascripts/expense.js")

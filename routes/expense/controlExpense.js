@@ -13,7 +13,7 @@ const Expense = require('../../models/Expense');
 
 /* GET create page. */
 router.get('/create',eA, (req, res, next)=> {
-    res.render('expense/create',{token:global.token});
+    res.render('expense/create',{title:'Xarajat qo`shish',token:global.token});
 });
 
 /* POST create page. */
@@ -45,7 +45,7 @@ router.post('/create',eA, (req, res, next)=> {
 
 /* GET all page. */
 router.get('/all',eA, async(req, res, next)=> {
-  res.render('expense/all',{token:global.token});
+  res.render('expense/all',{title:'Hamma xarajatlar',token:global.token});
 });
 
 /* GET show page. */
@@ -58,15 +58,27 @@ router.post('/show',eA, async(req, res, next)=> {
     let beginTime = new Date(req.body.begin); //kiriitilgan begin vaqtni boslanish
     let finishTime = new Date(req.body.finish);//kiriitilgan finish vaqtni boslanish
     let hudud = req.user.hudud || req.body.hudud;//hudud
-   
+    let allExpenses = 0;
+    let price =0;
+
     await Expense.find({'createdAt':{$gte:beginTime,$lte:finishTime},'hudud':hudud},async(err,data)=>{
       if(err)
         {
           req.flash('danger','Xatolik mavjud');
           res.redirect('/expense/show');
         }
-      else{           
-          res.render('expense/all',{expenses:data});
+      else{  
+         await data.forEach(element => {
+              if(element.reasonType == 'get'){
+                  price =  (-1)* element.price;
+                  console.log(price);
+              }
+              else{
+                price = element.price;
+              }
+              allExpenses += price;
+          });   
+          res.render('expense/all',{expenses:data,'allExpense':allExpenses});
       }
     })
 

@@ -15,7 +15,7 @@ const verifyToken = require('../../middleware/verifyToken');
 // user/all
 router.get('/all',eA, (req, res, next)=> { 
     Debt.find({},(err,debts)=>{
-        res.render('debt/all',{debts:debts});
+        res.render('debt/all',{title:'Hamma qarzdorlik',debts:debts});
     })
   });
 
@@ -25,11 +25,11 @@ router.get('/create',eA, async(req, res, next)=> {
     let branches = [];
         if(req.user.status == 'super'){
            branches =  await Branch.find({});
-           res.render('debt/create',{branches:branches,token:global.token});
+           res.render('debt/create',{title:'Qarzdorlik qo`shish',branches:branches,token:global.token});
         } 
         else{
             branches = [];
-            res.render('debt/create',{branches:branches,token:global.token});
+            res.render('debt/create',{title:'Qarzdorlik qo`shish',branches:branches,token:global.token});
         }
   });
 router.post('/create',eA,verifyToken,(req,res,next)=>{
@@ -68,7 +68,7 @@ router.post('/create',eA,verifyToken,(req,res,next)=>{
 // debt/update/id
 router.get('/update/:id',eA, async(req, res, next)=> { 
     Debt.findById(req.params.id,(err,historyDebts)=>{    
-        res.render('debt/update',{'historyDebts':historyDebts,token:global.token});
+        res.render('debt/update',{title:'Qarzdorlik o`zgartirish','historyDebts':historyDebts,token:global.token});
     });
 });
 

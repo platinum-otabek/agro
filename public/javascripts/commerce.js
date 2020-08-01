@@ -56,6 +56,6 @@ $(document).ready(function () {
     var item = $(this).parent().parent('td')['prevObject'][0]['id'];
     allAddedItems = allAddedItems.filter(element => element != item);
   });
-  
+
 
 });

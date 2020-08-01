@@ -12,14 +12,14 @@ const verifyToken = require('../../middleware/verifyToken');
 // branch/item/all
 router.get('/all',eAdmin, (req, res, next)=> {    
       Branch.findOne({'name': req.user.hudud},(err,items)=>{
-        res.render('branch/item/all',{items:items});
+        res.render('branch/item/all',{title:'Hamma mahsulotlar',items:items});
       })
   });
 
 /* GET create  new item in branch. */
 // branch/item/create
 router.get('/create',eAdmin, (req, res, next)=> {
-    res.render('branch/item/create',{token:global.token});
+    res.render('branch/item/create',{title:'Mahsulot qo`shish',token:global.token});
 });  
 
 /* POST create  new item in branch. */
@@ -63,7 +63,7 @@ router.post('/create', eAdmin,verifyToken,async(req, res, next)=> {
 // branch/item/update
 router.get('/update',eAdmin, async(req, res, next)=> {
  await Branch.findOne({name: req.user.hudud},'sklad',(err,branchItems)=>{
-  res.render('branch/item/update',{items:branchItems,token:global.token});
+  res.render('branch/item/update',{title:'Mahsulotni o`zgartirish',items:branchItems,token:global.token});
  })
 });
 

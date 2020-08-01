@@ -20,12 +20,13 @@ block content
                 td.numbers= commerce.allSum  
                 td(class='naqd numbers')= commerce.naqd 
                 td(class='terminal numbers')= commerce.terminal 
-                td(class='numbers')= commerce.transferMoney 
+                td(class='transferMoney numbers')= commerce.transferMoney 
                 td.numbers= commerce.discount 
                 td.numbers= commerce.debt 
                 td= commerce.items 
                 td= commerce.createdAt  
     p.allSum.numbers
     p.allTerminal.numbers
+    p.allTransferMoney.numbers
 append javascripts
     script(src="/javascripts/digit.js")

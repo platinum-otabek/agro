@@ -8,7 +8,7 @@ router.get('/', (req, res, next)=> {
 });
 /* GET Login page. */
 router.get('/login', (req, res, next)=> {
-  res.render('login', { title: 'Express' });
+  res.render('login', { title: 'Login' });
 });
 
 /* Post Login and authenticate page. */
@@ -31,7 +31,7 @@ router.post('/login', (req, res, next)=> {
 });
 /* GET system . */
 router.get('/system', function(req, res, next) {
-  res.render('system/system'); 
+  res.render('system/system',{title:'Qarzdorlik qo`shish'}); 
 });
  
 

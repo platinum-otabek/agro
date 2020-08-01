@@ -32,6 +32,7 @@ router.get('/', eAdmin, (req, res, next) => {
     name: req.user.hudud
   }, 'sklad', (err, data) => {
     res.render('commerce/commerce', {
+      title:'Savdo qilish',
       data: data,
       token:global.token
     });
@@ -86,7 +87,7 @@ router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
 
 router.get('/show',eA,async(req,res,next)=>{
   branches = await Branch.find({},'name');
-  res.render('commerce/show',{branches:branches});
+  res.render('commerce/show',{title:'Savdoni ko`rsatish',branches:branches});
 })
 
 router.post('/show',eA,verifyToken,async (req,res,next)=>{
