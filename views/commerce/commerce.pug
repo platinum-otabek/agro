@@ -22,19 +22,19 @@ block content
                         td.btn.btn-primary.text-center.add(id=item.name class='add' scope='col') add    
     hr
     div.sum
-        p.align-center| Sotib olingan mahsulotlar: 
+        p.align-center Sotib olingan mahsulotlar:
         p.allSum
         btn.price.btn.btn-sm.btn-primary Hisoblamoq
-    form(action="/commerce" method="POST")
+    form(action="/commerce" method="POST" onsubmit="return validateForm()")
         
         div(class="wrapper-scroll-y my-item-scrollbar")
             table.all.table.table-bordered.table-striped.mb-0
                 thead
                     tr
-                        th(scope='col')|Mahsulot Nomi
-                        th(scope='col')|Miqdori
-                        th(scope='col')|Narxi 
-                        th(scope='col')|O`chirish
+                        th(scope='col') Mahsulot Nomi
+                        th(scope='col') Miqdori
+                        th(scope='col') Narxi
+                        th(scope='col') O`chirish
                 tbody#addedItems 
         hr
         .form-group

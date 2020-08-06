@@ -4,7 +4,7 @@ const passport = require('passport');
 
 /* GET Login page. */
 router.get('/', (req, res, next)=> {
-  res.render('login', { title: 'Express' });
+  res.render('login', { title: 'Login' });
 });
 /* GET Login page. */
 router.get('/login', (req, res, next)=> {

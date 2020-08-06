@@ -1,9 +1,43 @@
 data.forEach(element => {});
-
+function checkAllSum() {
+  sum = 0;
+  var rows = document.getElementsByClassName("items");
+  if(rows.length == 0){
+    $('.allSum').text(sum.toFixed(2) + 'so`m');
+  }
+  for (var i = 0; i < rows.length; i++) {
+    mahsulotNomi = rows[i].name;
+    val = rows[i].value;
+    price = data.find(element => element.name === mahsulotNomi).price;
+    sum += parseFloat(val) * parseFloat(price);
+    $('.allSum').text(sum.toFixed(2) + 'so`m')
+  }
+  return sum;
+}
+function validateForm() {
+  let discount = $("#discount").val();
+  let naqd = $("#naqd").val();
+  let terminal = $("#terminal").val();
+  let transfer = $("#transfer").val();
+  let debt = $("#debt").val();
+  allProductPrice = checkAllSum();
+  allSum = parseFloat(discount)+ parseFloat(naqd)+parseFloat(terminal)+parseFloat(transfer)+parseFloat(debt);
+  remainSum = parseFloat(allProductPrice)-allSum;
+   if(remainSum < 0){
+     alert(`Berilgan jami sum:${allSum} qaytim: ${remainSum*(-1)}`);
+     return false;
+   }
+   else if (remainSum >0){
+     alert(`Berilgan jami sum:${allSum} to'lanishi kerak bo'lgan sum:${remainSum}`);
+     return false;
+   }
+   else if(remainSum == 0 && allProductPrice != 0 && allSum != 0){
+     return true;
+   }
+   return false;
+}
 
 $(document).ready(function () {
-
-
   var addItemsIndex = 1;
   let sum = 0,
     allAddedItems = [];
@@ -14,15 +48,7 @@ $(document).ready(function () {
     });
   });
   $('.price').on('click', function (params) {
-    sum = 0;
-    var rows = document.getElementsByClassName("items");
-    for (var i = 0; i < rows.length; i++) {
-      name = rows[i].name;
-      val = rows[i].value;
-      price = data.find(element => element.name === name).price;
-      sum += parseFloat(val) * parseFloat(price);
-      $('.allSum').text(sum + 'so`m')
-    }
+    checkAllSum();
   })
   //add item 
   $('.add').on('click', function () {
@@ -48,6 +74,7 @@ $(document).ready(function () {
     } else {
       alert('Bu mahsulot avval qo`shilgan')
     }
+    checkAllSum();
   });
   //delete item
   $('#addedItems').on('click', '.deleted', function () {
@@ -55,6 +82,7 @@ $(document).ready(function () {
     $(this).parent().parent().remove();
     var item = $(this).parent().parent('td')['prevObject'][0]['id'];
     allAddedItems = allAddedItems.filter(element => element != item);
+    checkAllSum();
   });
 
 
