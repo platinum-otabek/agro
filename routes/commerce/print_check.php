@@ -4,67 +4,69 @@ use Mike42\Escpos\Printer;
 use Mike42\Escpos\EscposImage;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
-/* Fill in your own connector here */
-$connector = new WindowsPrintConnector("XP-80C");
+function print_check($argv){
+    /* Fill in your own connector here */
+    $connector = new WindowsPrintConnector("XP-80C");
 
-/* Information for the receipt */
-$params = explode(';',$argv[1]);
-for($i=0;$i<count($params);$i++){
-     echo $params[$i];
-     $itemPrice = explode('-',$params[$i]);
-     if( strpos($params[$i],'Jami:') !== false){
+    /* Information for the receipt */
+    $params = explode(';',$argv);
+    for($i=0;$i<count($params);$i++){
+        echo $params[$i];
+        $itemPrice = explode('-',$params[$i]);
+        if( strpos($params[$i],'Jami:') !== false){
             $total = new item('Jami:', $itemPrice[1], true);
             break;
         }
-    $items[$i] = new item($itemPrice[0],$itemPrice[1]);
-}
+        $items[$i] = new item($itemPrice[0],$itemPrice[1]);
+    }
 // set default timezone
-date_default_timezone_set('Asia/Tashkent'); // CDT
-$date = date('d/m/Y == H:i:s');
+    date_default_timezone_set('Asia/Tashkent'); // CDT
+    $date = date('d/m/Y == H:i:s');
 
-/* Start the printer */
-$printer = new Printer($connector);
+    /* Start the printer */
+    $printer = new Printer($connector);
 
-/* Print top logo */
-$printer -> setJustification(Printer::JUSTIFY_CENTER);
+    /* Print top logo */
+    $printer -> setJustification(Printer::JUSTIFY_CENTER);
 
 
-/* Name of shop */
-$printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-$printer -> text("Agrogreen Planet LLc.\n");
-$printer -> selectPrintMode();
-$printer -> feed();
+    /* Name of shop */
+    $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+    $printer -> text("Agrogreen Planet LLc.\n");
+    $printer -> selectPrintMode();
+    $printer -> feed();
 
-/* Title of receipt */
-$printer -> setEmphasis(true);
+    /* Title of receipt */
+    $printer -> setEmphasis(true);
 //$printer -> text("SALES INVOICE\n");
-$printer -> setEmphasis(false);
+    $printer -> setEmphasis(false);
 
-/* Items */
-$printer -> setJustification(Printer::JUSTIFY_LEFT);
-$printer -> setEmphasis(true);
-$printer -> text(new item('', 'so`m'));
-$printer -> setEmphasis(false);
-foreach ($items as $item) {
-    $printer -> text($item);
+    /* Items */
+    $printer -> setJustification(Printer::JUSTIFY_LEFT);
+    $printer -> setEmphasis(true);
+    $printer -> text(new item('', 'so`m'));
+    $printer -> setEmphasis(false);
+    foreach ($items as $item) {
+        $printer -> text($item);
+    }
+
+    $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+    $printer -> text($total);
+    $printer -> selectPrintMode();
+
+    /* Footer */
+    $printer -> feed(2);
+    $printer -> setJustification(Printer::JUSTIFY_CENTER);
+    $printer -> text("Xaridingiz uchun rahmat\n");
+    $printer -> feed(2);
+    $printer -> text($date . "\n");
+
+    /* Cut the receipt and open the cash drawer */
+    $printer -> cut();
+    $printer -> pulse();
+
+    $printer -> close();
 }
-
-$printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-$printer -> text($total);
-$printer -> selectPrintMode();
-
-/* Footer */
-$printer -> feed(2);
-$printer -> setJustification(Printer::JUSTIFY_CENTER);
-$printer -> text("Xaridingiz uchun rahmat\n");
-$printer -> feed(2);
-$printer -> text($date . "\n");
-
-/* Cut the receipt and open the cash drawer */
-$printer -> cut();
-$printer -> pulse();
-
-$printer -> close();
 
 /* A wrapper to do organise item names & prices into columns */
 class item

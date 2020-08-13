@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Branch = require('../../models/Branch');
 const Commerce = require('../../models/Commerce');
-const runner = require('child_process');
-var printCheckPhp = "./print_check.php";
+const execPhp = require('exec-php');
+var printCheckPhp = "print_check.php";
 const {
   eA,
   eS,
@@ -65,8 +65,11 @@ router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
     allSolded+=`${element[0]}:${element[1]}\n`; // bazaga yoziw uchun olingan mashulotlarni nomi:sonini yozib boradi
   }
     allItemsForPrintingChek += `Jami: ${allSum}`;
-    await runner.exec("php7.2 " + printCheckPhp + " " + JSON.stringify(allItemsForPrintingChek), function(err, phpResponse, stderr) {
-        if(err) console.log(err); /* log error */
+    await execPhp(printCheckPhp, function(error, php, outprint){
+        php.my_function(allItemsForPrintingChek,function(err, result, output, printed){
+            console.log('output1', output);
+            console.log('result',result);
+        });
     });
   const newCommerce = new Commerce({
     'items':allSolded,
