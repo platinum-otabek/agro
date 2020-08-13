@@ -65,7 +65,7 @@ router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
     allSolded+=`${element[0]}:${element[1]}\n`; // bazaga yoziw uchun olingan mashulotlarni nomi:sonini yozib boradi
   }
     allItemsForPrintingChek += `Jami: ${allSum}`;
-    await runner.exec("php " + printCheckPhp + " " + JSON.stringify(allItemsForPrintingChek), function(err, phpResponse, stderr) {
+    await runner.exec("php7.2 " + printCheckPhp + " " + JSON.stringify(allItemsForPrintingChek), function(err, phpResponse, stderr) {
         if(err) console.log(err); /* log error */
     });
   const newCommerce = new Commerce({
@@ -95,6 +95,14 @@ router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
 router.get('/show',eA,async(req,res,next)=>{
   branches = await Branch.find({},'name');
   res.render('commerce/show',{title:'Savdoni ko`rsatish',branches:branches});
+})
+router.get('/test',(req,res,next)=>{
+    let product_name = "temir italiya 6%";
+    var argsString =`${product_name} - 735000;agiis fe 6% - 150000;breksel mn - 160000;Jami: -1035000`;
+    runner.exec("php7.2 " + printCheckPhp + " " + JSON.stringify(argsString), function(err, phpResponse, stderr) {
+        if(err) console.log(err); /* log error */
+        console.log( phpResponse );
+    });
 })
 
 router.post('/show',eA,verifyToken,async (req,res,next)=>{
