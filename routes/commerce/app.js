@@ -9,11 +9,13 @@
 //     });
 // });
 
-var runner = require('child_process');
+var exexPhp = require('exec-php');
 var phpScriptPath = "print_check.php";
 let product_name = "temir italiya 6%";
 var argsString =`${product_name} - 735000;agiis fe 6% - 150000;breksel mn - 160000;Jami: -1035000`;
-runner.exec("php7.2 " + phpScriptPath + " " + JSON.stringify(argsString), function(err, phpResponse, stderr) {
-    if(err) console.log(err); /* log error */
-    console.log( phpResponse );
+execPhp(phpScriptPath, function(error, php, outprint){
+    php.print_check(argsString,function(err, result, output, printed){
+        console.log('output1', output);
+        console.log('result',result);
+    });
 });

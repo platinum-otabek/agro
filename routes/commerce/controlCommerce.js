@@ -66,7 +66,7 @@ router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
   }
     allItemsForPrintingChek += `Jami: ${allSum}`;
     await execPhp(printCheckPhp, function(error, php, outprint){
-        php.my_function(allItemsForPrintingChek,function(err, result, output, printed){
+        php.print_check(allItemsForPrintingChek,function(err, result, output, printed){
             console.log('output1', output);
             console.log('result',result);
         });
