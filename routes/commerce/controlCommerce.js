@@ -3,7 +3,7 @@ const router = express.Router();
 const Branch = require('../../models/Branch');
 const Commerce = require('../../models/Commerce');
 const runner = require('child_process');
-var printCheckPhp = "print_check.php";
+var printCheckPhp = "./print_check.php";
 const {
   eA,
   eS,
