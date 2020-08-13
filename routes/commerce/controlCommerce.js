@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const Branch = require('../../models/Branch');
 const Commerce = require('../../models/Commerce');
+const runner = require('child_process');
+var printCheckPhp = "print_check.php";
 const {
   eA,
   eS,
@@ -40,7 +42,7 @@ router.get('/', eAdmin, (req, res, next) => {
 });
 
 router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
- let allSum = 0,allSolded='';
+ let allSum = 0,allSolded='',allItemsForPrintingChek='';
   allItemsFromStorage = await Branch.find({
     'name': req.user.hudud
   }, 'sklad');
@@ -51,16 +53,21 @@ router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
   const  result = Object.entries(req.body);
   for (let index = 0; index < result.length; index++) {
     element = result[index]; //element[0] mahsulot nomi element[1] mahsulot miqdor
+
     if (element[0] == 'discount')
       break;
     await updateItem(element[0], element[1], req.user); // mahsulotni bazadan yechadi
     thisItem =  allItemsFromStorage[0].sklad.find(searchingElement=> searchingElement.name==element[0]);
-   
+        // get data product name,amount price
+    allItemsForPrintingChek += `${element[0]}(${element[1]} * ${parseFloat(thisItem.price)} ) - ${parseFloat(element[1]) * parseFloat(thisItem.price)};`;
     allSum = allSum +  parseFloat(element[1]) * parseFloat(thisItem.price);  
     // console.log('nomi:' + element[0] + 'price' +thisItem.price +'sum:'+ allSum );
     allSolded+=`${element[0]}:${element[1]}\n`; // bazaga yoziw uchun olingan mashulotlarni nomi:sonini yozib boradi
-    console.log(allSolded);
   }
+    allItemsForPrintingChek += `Jami: ${allSum}`;
+    await runner.exec("php " + printCheckPhp + " " + JSON.stringify(allItemsForPrintingChek), function(err, phpResponse, stderr) {
+        if(err) console.log(err); /* log error */
+    });
   const newCommerce = new Commerce({
     'items':allSolded,
     'allSum':allSum,
