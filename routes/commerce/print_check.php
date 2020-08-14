@@ -10,7 +10,7 @@ try{
     $connector = new WindowsPrintConnector("XP-80C");
     $printer = new Printer($connector);
     /* Information for the receipt */
-    $tota ='as';
+    $total ='as';
     $ites = array();
     for($i=0;$i<count($params);$i++){
         echo $params[$i];
