@@ -66,8 +66,11 @@ router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
     allSolded+=`${element[0]}:${element[1]}\n`; // bazaga yoziw uchun olingan mashulotlarni nomi:sonini yozib boradi
   }
     allItemsForPrintingChek += `Jami: ${allSum}`;
-    await runner.exec("php7.2 " + printCheckPhp + " " + JSON.stringify(allItemsForPrintingChek), function(err, phpResponse, stderr) {
-        if(err) console.log(err); /* log error */
+    await execPhp('print_check.php', 'php7.2', function(error, php, output){
+        // php now contain user defined php functions.
+        php.print_check(allItemsForPrintingChek , function(error, result, output, printed){
+            // `result` is return value of `my_own_php_function` php function.
+        });
     });
   const newCommerce = new Commerce({
     'items':allSolded,
@@ -100,8 +103,15 @@ router.get('/show',eA,async(req,res,next)=>{
 router.get('/test',(req,res,next)=>{
     let product_name = "temir italiya 6%";
     var argsString =`${product_name} - 735000;agiis fe 6% - 150000;breksel mn - 160000;Jami: -1035000`;
-    runner.exec("php7.2 " + printCheckPhp + " " + JSON.stringify(argsString), function(err, phpResponse, stderr) {
-        if(err) console.log(err); /* log error */
+    // runner.exec("/usr/lib/php/7.3 " + 'print_check.php', function(err, phpResponse, stderr) {
+    //     if(err) console.log(err); /* log error */
+    // });
+
+    execPhp('print_check.php', 'php7.3', function(error, php, output){
+        // php now contain user defined php functions.
+        php.print_check("allItemsForPrintingChek;" , function(error, result, output, printed){
+            // `result` is return value of `my_own_php_function` php function.
+        });
     });
 })
 
