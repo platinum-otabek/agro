@@ -2,9 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Branch = require('../../models/Branch');
 const Commerce = require('../../models/Commerce');
-const runner = require('child_process');
-const path = require('path');
-var printCheckPhp = path.join(__dirname,"print_check.php");
+
 const {
   eA,
   eS,
@@ -66,10 +64,7 @@ router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
     allSolded+=`${element[0]}:${element[1]}\n`; // bazaga yoziw uchun olingan mashulotlarni nomi:sonini yozib boradi
   }
     allItemsForPrintingChek += `Jami: ${allSum}`;
-    await runner.exec("php " + printCheckPhp + " " + allItemsForPrintingChek, function(err, phpResponse, stderr) {
-        if(err) console.log(err); /* log error */
-        console.log( phpResponse );
-    });
+
   const newCommerce = new Commerce({
     'items':allSolded,
     'allSum':allSum,
@@ -97,23 +92,10 @@ router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
 router.get('/show',eA,async(req,res,next)=>{
   branches = await Branch.find({},'name');
   res.render('commerce/show',{title:'Savdoni ko`rsatish',branches:branches});
-})
+});
 router.get('/test',async (req,res,next)=>{
-    let product_name = "temiritaliya6%";
-    var argsString =`${product_name}-735000;agiisfe6%-150000;brekselmn-160000;Jami:-1035000`;
-    await runner.exec("php " + printCheckPhp + "  " + argsString , function(err, phpResponse, stderr) {
-        if(err) {
-            console.log(err); /* log error */
-            console.log( phpResponse );
-        }
-        else{
-            console.log( phpResponse );
-            res.redirect('/login');
-        }
-    });
-
-
-})
+    res.render('commerce/test_print_check');
+});
 
 router.post('/show',eA,verifyToken,async (req,res,next)=>{
     let beginTime = new Date(req.body.begin); //kiriitilgan begin vaqtni boslanish
