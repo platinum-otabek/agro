@@ -10,7 +10,7 @@ try{
     $connector = new WindowsPrintConnector("XP-80C");
     $printer = new Printer($connector);
     /* Information for the receipt */
-    $tota =0;
+    $tota ='as';
     $ites = array();
     for($i=0;$i<count($params);$i++){
         echo $params[$i];
@@ -50,9 +50,11 @@ try{
     foreach ($items as $item) {
         $printer -> text($item);
     }
+    if ($total){
+        $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+        $printer -> text($total);
+    }
 
-    $printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
-    $printer -> text($total);
     $printer -> selectPrintMode();
 
     /* Footer */
