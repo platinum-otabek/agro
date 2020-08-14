@@ -23,6 +23,7 @@ function validateForm() {
   allProductPrice = checkAllSum();
   allSum = parseFloat(discount)+ parseFloat(naqd)+parseFloat(terminal)+parseFloat(transfer)+parseFloat(debt);
   remainSum = parseFloat(allProductPrice)-allSum;
+  allAddedItemsForPrinting();
    if(remainSum < 0){
      alert(`Berilgan jami sum:${allSum} qaytim: ${remainSum*(-1)}`);
      return false;
@@ -32,9 +33,38 @@ function validateForm() {
      return false;
    }
    else if(remainSum == 0 && allProductPrice != 0 && allSum != 0){
-     return true;
+      let allAddedItems =  allAddedItemsForPrinting();
+       $.ajax({
+         type: 'post',
+         url: 'http://print.xyz/example/interface/windows-usb.php',
+         data: {
+           argv : allAddedItems,
+         },
+         success: function (data) {
+           console.log(data);
+         }
+       });
+        return true;
    }
    return false;
+}
+
+function allAddedItemsForPrinting(){
+  let sum = 0,allAddItems='';
+  var rows = document.getElementsByClassName("items");
+  if(rows.length == 0){
+    $('.allSum').text(sum.toFixed(2) + 'so`m');
+  }
+  for (var i = 0; i < rows.length; i++) {
+    mahsulotNomi = rows[i].name;
+    val = rows[i].value;
+    price = data.find(element => element.name === mahsulotNomi).price;
+    sum += parseFloat(val) * parseFloat(price);
+    allAddItems += `${mahsulotNomi} (${val} * ${price} - ${parseFloat(val) * parseFloat(price)});`;
+    //value1(1.05*70) - 73.5; ... ; Jami:-100
+  }
+  allAddItems += `Jami:-${sum}`;
+  return allAddItems;
 }
 
 $(document).ready(function () {
@@ -67,7 +97,7 @@ $(document).ready(function () {
     var old = $('#addItems').find(`.${name}`);
 
     var checkingItem = allAddedItems.find(element => element == name);
-    if (!checkingItem) {
+    if (!checkingItem) {//mahsulot avval qo`wilgan bo`lsa
       allAddedItems.push(name);
       $('#addedItems').append(itemDate);
       addItemsIndex++;

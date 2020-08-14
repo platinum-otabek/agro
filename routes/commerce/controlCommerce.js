@@ -41,7 +41,7 @@ router.get('/', eAdmin, (req, res, next) => {
 });
 
 router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
- let allSum = 0,allSolded='',allItemsForPrintingChek='';
+ let allSum = 0,allSolded='';
   allItemsFromStorage = await Branch.find({
     'name': req.user.hudud
   }, 'sklad');
@@ -58,12 +58,10 @@ router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
     await updateItem(element[0], element[1], req.user); // mahsulotni bazadan yechadi
     thisItem =  allItemsFromStorage[0].sklad.find(searchingElement=> searchingElement.name==element[0]);
         // get data product name,amount price
-    allItemsForPrintingChek += `${element[0]}(${element[1]} * ${parseFloat(thisItem.price)} ) - ${parseFloat(element[1]) * parseFloat(thisItem.price)};`;
-    allSum = allSum +  parseFloat(element[1]) * parseFloat(thisItem.price);  
+    allSum = allSum +  parseFloat(element[1]) * parseFloat(thisItem.price);
     // console.log('nomi:' + element[0] + 'price' +thisItem.price +'sum:'+ allSum );
     allSolded+=`${element[0]}:${element[1]}\n`; // bazaga yoziw uchun olingan mashulotlarni nomi:sonini yozib boradi
   }
-    allItemsForPrintingChek += `Jami: ${allSum}`;
 
   const newCommerce = new Commerce({
     'items':allSolded,
@@ -93,9 +91,7 @@ router.get('/show',eA,async(req,res,next)=>{
   branches = await Branch.find({},'name');
   res.render('commerce/show',{title:'Savdoni ko`rsatish',branches:branches});
 });
-router.get('/test',async (req,res,next)=>{
-    res.render('commerce/test_print_check');
-});
+
 
 router.post('/show',eA,verifyToken,async (req,res,next)=>{
     let beginTime = new Date(req.body.begin); //kiriitilgan begin vaqtni boslanish
