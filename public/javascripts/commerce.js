@@ -60,7 +60,7 @@ function allAddedItemsForPrinting(){
     val = rows[i].value;
     price = data.find(element => element.name === mahsulotNomi).price;
     sum += parseFloat(val) * parseFloat(price);
-    allAddItems += `${mahsulotNomi} (${val} * ${price} - ${parseFloat(val) * parseFloat(price)});`;
+    allAddItems += `${mahsulotNomi} (${val} * ${price}) - ${parseFloat(val) * parseFloat(price)};`;
     //value1(1.05*70) - 73.5; ... ; Jami:-100
   }
   allAddItems += `Jami:-${sum}`;
