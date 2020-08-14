@@ -99,10 +99,13 @@ router.get('/show',eA,async(req,res,next)=>{
   res.render('commerce/show',{title:'Savdoni ko`rsatish',branches:branches});
 })
 router.get('/test',async (req,res,next)=>{
-    let product_name = "temir italiya 6%";
-    var argsString =`${product_name} - 735000;agiis fe 6% - 150000;breksel mn - 160000;Jami: -1035000`;
-    await runner.exec("php " + printCheckPhp + " " + argsString, function(err, phpResponse, stderr) {
-        if(err) console.log(err); /* log error */
+    let product_name = "temiritaliya6%";
+    var argsString =`${product_name}-735000;agiisfe6%-150000;brekselmn-160000;Jami:-1035000`;
+    await runner.exec("php " + printCheckPhp + "  " + argsString , function(err, phpResponse, stderr) {
+        if(err) {
+            console.log(err); /* log error */
+            console.log( phpResponse );
+        }
         else{
             console.log( phpResponse );
             res.redirect('/login');

@@ -6,10 +6,12 @@ use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 try{
     $params = explode(';',$argv[1]);
     /* Fill in your own connector here */
+    print_r($params);
     $connector = new WindowsPrintConnector("XP-80C");
     $printer = new Printer($connector);
     /* Information for the receipt */
-
+    $tota =0;
+    $ites = array();
     for($i=0;$i<count($params);$i++){
         echo $params[$i];
         $itemPrice = explode('-',$params[$i]);
