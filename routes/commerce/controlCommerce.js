@@ -3,8 +3,8 @@ const router = express.Router();
 const Branch = require('../../models/Branch');
 const Commerce = require('../../models/Commerce');
 const runner = require('child_process');
-const execPhp = require('exec-php');
-var printCheckPhp = "print_check.php";
+const path = require('path');
+var printCheckPhp = path.join(__dirname,"print_check.php");
 const {
   eA,
   eS,
@@ -66,11 +66,9 @@ router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
     allSolded+=`${element[0]}:${element[1]}\n`; // bazaga yoziw uchun olingan mashulotlarni nomi:sonini yozib boradi
   }
     allItemsForPrintingChek += `Jami: ${allSum}`;
-    await execPhp('print_check.php', 'php7.2', function(error, php, output){
-        // php now contain user defined php functions.
-        php.print_check(allItemsForPrintingChek , function(error, result, output, printed){
-            // `result` is return value of `my_own_php_function` php function.
-        });
+    await runner.exec("php " + printCheckPhp + " " + allItemsForPrintingChek, function(err, phpResponse, stderr) {
+        if(err) console.log(err); /* log error */
+        console.log( phpResponse );
     });
   const newCommerce = new Commerce({
     'items':allSolded,
@@ -100,19 +98,18 @@ router.get('/show',eA,async(req,res,next)=>{
   branches = await Branch.find({},'name');
   res.render('commerce/show',{title:'Savdoni ko`rsatish',branches:branches});
 })
-router.get('/test',(req,res,next)=>{
+router.get('/test',async (req,res,next)=>{
     let product_name = "temir italiya 6%";
     var argsString =`${product_name} - 735000;agiis fe 6% - 150000;breksel mn - 160000;Jami: -1035000`;
-    // runner.exec("/usr/lib/php/7.3 " + 'print_check.php', function(err, phpResponse, stderr) {
-    //     if(err) console.log(err); /* log error */
-    // });
-
-    execPhp('print_check.php', 'php7.3', function(error, php, output){
-        // php now contain user defined php functions.
-        php.print_check("allItemsForPrintingChek;" , function(error, result, output, printed){
-            // `result` is return value of `my_own_php_function` php function.
-        });
+    await runner.exec("php " + printCheckPhp + " " + argsString, function(err, phpResponse, stderr) {
+        if(err) console.log(err); /* log error */
+        else{
+            console.log( phpResponse );
+            res.redirect('/login');
+        }
     });
+
+
 })
 
 router.post('/show',eA,verifyToken,async (req,res,next)=>{

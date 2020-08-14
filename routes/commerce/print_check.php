@@ -1,15 +1,15 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 use Mike42\Escpos\Printer;
-use Mike42\Escpos\EscposImage;
 use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 
-function print_check($argv){
+try{
+    $params = explode(';',$argv[1]);
     /* Fill in your own connector here */
     $connector = new WindowsPrintConnector("XP-80C");
-
+    $printer = new Printer($connector);
     /* Information for the receipt */
-    $params = explode(';',$argv);
+
     for($i=0;$i<count($params);$i++){
         echo $params[$i];
         $itemPrice = explode('-',$params[$i]);
@@ -23,8 +23,7 @@ function print_check($argv){
     date_default_timezone_set('Asia/Tashkent'); // CDT
     $date = date('d/m/Y == H:i:s');
 
-    /* Start the printer */
-    $printer = new Printer($connector);
+
 
     /* Print top logo */
     $printer -> setJustification(Printer::JUSTIFY_CENTER);
@@ -66,6 +65,8 @@ function print_check($argv){
     $printer -> pulse();
 
     $printer -> close();
+}catch (Exception $e) {
+    echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
 }
 
 /* A wrapper to do organise item names & prices into columns */
