@@ -31,6 +31,7 @@ router.post('/create',eK,verifyToken, (req, res, next)=> {
   const errors = req.validationErrors();
   if(errors)
     {
+        console.log(errors);
       res.render('branch/create',{title:'Filial qo`shish',errors:errors});
     }
     else{
@@ -47,7 +48,7 @@ router.post('/create',eK,verifyToken, (req, res, next)=> {
             }
           else{
             req.flash('info','Filial muvaffaqiyatli yuklandi');
-            res.redirect('/branch/all',{title:'Hamma filiallar'});
+            res.redirect('/branch/all');
           }
         })
     }

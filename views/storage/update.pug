@@ -1,0 +1,41 @@
+extends ../layout 
+block content
+   
+    form.form-horizontal(action='/storage/update/' + historyStorages._id method='POST')
+        input(type="hidden" class='token' name='token')
+        .form-group
+                label.control-label.col-sm-2(for='sum') Berilgan sum:
+                .col-sm-8
+                     input#sum.form-control(type='number',required name='sum' placeholder='Berilgan mablag`ni kiriting')
+        .form-group
+            .col-sm-offset-2.col-sm-10
+                button.btn.btn-default(type='submit') Kiritish
+    ul.list-group
+        li.list-group-item Yuborgan shaxs: #{historyStorages.name}
+        li.list-group-item No`mer:  #{historyStorages.number}
+        li.list-group-item.numbers Jami savdo: #{historyStorages.allsum}
+        li.list-group-item.numbers Jami qarzdorlik:
+            p.allDebtSum #{historyStorages.debtsum}
+        li.list-group-item.numbers Qolgan  qarzdorlik:
+            p.allSum
+
+    table#tableItems.table.table-bordered.table-striped.mb-0
+        thead
+            tr
+                th(scope='col') #
+                th(scope='col') Berilgan mablag`
+                th(scope='col') Kun
+        each debt,index in historyStorages.history
+            tbody
+                tr#passport_id
+                    td= index+1
+                    td.debtSum.numbers= debt.sum
+                    td= debt.date 
+    script. 
+        var token = !{JSON.stringify(token)};
+append javascripts
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+    script(src="/javascripts/debt.js")
+    script(src="/javascripts/digit.js")
+    script(src="/javascripts/token.js")
+    

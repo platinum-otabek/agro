@@ -2,8 +2,8 @@ extends ../layout
 append stylesheets
     link(rel="stylesheet", href="/stylesheets/commerce.css")
 block content
-    input.p-3#filterTable.filtername(type="text")
-    div(class="wrapper-scroll-y my-table-scrollbar")    
+    input.p-3#filterTableName.filtername(type="text" autofocus=)
+    div(class="wrapper-scroll-y my-table-scrollbar")
         table#tableItems.table.table-bordered.table-striped.mb-0
             thead
                 tr
@@ -11,15 +11,17 @@ block content
                     th(scope='col') Mahsulot Nomi
                     th(scope='col') Miqdori
                     th(scope='col') Narxi
+                    th(scope='col') Shtrix
                     th(scope='col') Qo`shish
-            each item,index in data.sklad
-                tbody
+            tbody
+                each item,index in data.sklad
                     tr#items
                         td(scope='col') #{index+1}
                         td(scope='col') #{item.name}
                         td.amount(scope='col') #{item.amount.toFixed(2)}
-                        td(scope='col') #{item.price}    
-                        td.btn.btn-primary.text-center.add(id=item.name class='add' scope='col') add    
+                        td(scope='col') #{item.price}
+                        td(scope='col') #{item.kod}
+                        td.btn.btn-primary.text-center.add(id=item.name scope='col') add
     hr
     div.sum
         p.align-center Sotib olingan mahsulotlar:
@@ -34,6 +36,7 @@ block content
                         th(scope='col') Mahsulot Nomi
                         th(scope='col') Miqdori
                         th(scope='col') Narxi
+                        th(scope='col') Shtrix
                         th(scope='col') O`chirish
                 tbody#addedItems 
         hr

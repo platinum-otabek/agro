@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const randomize = require('randomatic');
 const Branch = require('../../models/Branch');
 const {eA,eS,eK,eAdmin} = require('../../middleware/middleware');
 
@@ -20,12 +20,14 @@ router.get('/all',eAdmin, (req, res, next)=> {
 // branch/item/create
 router.get('/create',eAdmin, (req, res, next)=> {
     res.render('branch/item/create',{title:'Mahsulot qo`shish',token:global.token});
+
 });  
 
 /* POST create  new item in branch. */
 // branch/item/create
 router.post('/create', eAdmin,verifyToken,async(req, res, next)=> {
-  const {name,amount,price} = req.body;
+  let {name,amount,price} = req.body;
+  let shtrix_id = req.body.shtrix_id || randomize('0',10);
   await Branch.find({'sklad.name':name,'name':req.user.hudud},(err,item)=>{
     console.log('hudud:' + req.user.hudud);
     if(item.length !=0 ){
@@ -38,7 +40,8 @@ router.post('/create', eAdmin,verifyToken,async(req, res, next)=> {
             sklad:{
               'name':name,
               'amount':amount,
-              'price':price
+              'price':price,
+              'kod':shtrix_id
             }
         }
       },(err)=>{
@@ -70,14 +73,15 @@ router.get('/update',eAdmin, async(req, res, next)=> {
 /* POST update item in branch. */
 // branch/item/update
 router.post('/update',eAdmin, async(req, res, next)=> {
-  const {name,amount,addsub,price} = req.body;
+  const {name,amount,addsub,price,kod} = req.body;
+    console.log('kod',kod);
   changingAmount = parseFloat(amount);
   changingAmount = parseFloat(changingAmount/2);
   await Branch.updateMany(
     {name:req.user.hudud,'sklad.name':name},
       {
         '$set':
-        {'sklad.$.price': price },
+        {'sklad.$.price': price,'sklad.$.kod':kod},
       });
   if(addsub == 'sub'){
       await Branch.updateMany(

@@ -1,5 +1,0 @@
-
-exports.utc = ()=>{
-    
-    return utc;
-}

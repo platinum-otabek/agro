@@ -1,4 +1,5 @@
 data.forEach(element => {});
+let addItemsIndex = 1,sum = 0,allAddedItems = [];
 function checkAllSum() {
   sum = 0;
   var rows = document.getElementsByClassName("items");
@@ -41,7 +42,6 @@ function validateForm() {
            argv : allAddedItems,
          },
          success: function (data) {
-           console.log(data);
          }
        });
         return true;
@@ -66,45 +66,58 @@ function allAddedItemsForPrinting(){
   allAddItems += `Jami:-${sum}`;
   return allAddItems;
 }
+$(document).on('keypress',function(e) {
+  if(e.which == 13){
 
+    let name = $('#tableItems #items:visible .add')[0];
+    console.log(name['id']);
+    addItemToTable(name['id']);
+  }
+});
+// mahsulotni tablega qo`wiw uchun
+function addItemToTable(name){
+  console.log(name)
+  var searchingData = data.find(element => element.name === name); // qo`wilmoqchi bo`lgan mahsulot data
+  var itemDate =
+      "<tr>\
+          <td scope='col'>" + name + "</td>\
+          <td  scope='col'>\
+            <input type='number' class='items' step=0.01 value=1 min=0 max='" + searchingData.amount + "'  name='" + name + "'/>\
+          </td>\
+          <td scope='col'>" + searchingData.price + "   </td>\
+          <td scope='col'>" + searchingData.kod + "   </td>\
+          <td class=' text-center' id='" + name + "'  scope='col'><a href='javascript:void(0);' class='btn btn-danger deleted'>delete</a></td>\
+      </tr>"
+  var old = $('#addItems').find(`.${name}`);
+  var checkingItem = allAddedItems.find(element => element == name);
+  if (!checkingItem) {//mahsulot avval qo`wilgan bo`lsa
+    allAddedItems.push(name);
+    $('#addedItems').append(itemDate);
+    addItemsIndex++;
+  } else {
+    alert('Bu mahsulot avval qo`shilgan');
+  }
+  checkAllSum();
+  $('#filterTableName').val('');
+  $('#filterTableName').focus();
+}
 $(document).ready(function () {
-  var addItemsIndex = 1;
-  let sum = 0,
-    allAddedItems = [];
-  $("#filterTable").on("keyup", function () {
+
+  $("#filterTableName").on("keyup", function () {
     var value = $(this).val().toLowerCase();
     $("#tableItems #items").filter(function () {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
+
   $('.price').on('click', function (params) {
     checkAllSum();
   })
   //add item 
   $('.add').on('click', function () {
-    var name = $(this).attr('id');
-    var searchingData = data.find(element => element.name === name);
+    var name = $(this).attr('id'); // mahsulot nomi
+    addItemToTable(name);
 
-    var itemDate =
-      "<tr>\
-          <td scope='col'>" + name + "</td>\
-          <td  scope='col'>\
-            <input type='number' class='items' step=0.01 value=0 min=0 max='" + searchingData.amount + "'  name='" + name + "'/>\
-          </td>\
-          <td scope='col'>" + searchingData.price + "   </td>\
-          <td class=' text-center' id='" + name + "'  scope='col'><a href='javascript:void(0);' class='btn btn-danger deleted'>delete</a></td>\
-      </tr>"
-    var old = $('#addItems').find(`.${name}`);
-
-    var checkingItem = allAddedItems.find(element => element == name);
-    if (!checkingItem) {//mahsulot avval qo`wilgan bo`lsa
-      allAddedItems.push(name);
-      $('#addedItems').append(itemDate);
-      addItemsIndex++;
-    } else {
-      alert('Bu mahsulot avval qo`shilgan')
-    }
-    checkAllSum();
   });
   //delete item
   $('#addedItems').on('click', '.deleted', function () {

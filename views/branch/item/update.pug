@@ -5,20 +5,25 @@ block content
         .form-group
             label.control-label.col-sm-2(for='name') Mahsulot Nomi:
             .col-sm-8
-               select.form-control(name="name")
+               select.form-control.name(name="name")
                     each item in items.sklad
-                        option(value= item.name)|#{item.name} / #{item.amount.toFixed(2)}
+                        option(value= item.name) #{item.name} / #{item.amount.toFixed(2)}
 
         .form-group
             label.control-label.col-sm-2(for='name') Mahsulot +/-:
             .col-sm-8
                select.form-control(name="addsub")
-                    option(value='add' select)|Mahsulot qo`shmoq
-                    option(value='sub')|Mahsulot ayirmoq
+                    option(value='add' select) Mahsulot qo`shmoq
+                    option(value='sub') Mahsulot ayirmoq
         .form-group
                 label.control-label.col-sm-2(for='amount') Mahsulot miqdori:
                 .col-sm-8
                      input#name.form-control(type='number',required name='amount' step=0.01 min=0 placeholder='mahsulot miqdorini kiriting')
+        .form-group
+            label.control-label.col-sm-2(for='kod') Mahsulot shtrix kod:
+            .col-sm-8
+                input#kod.form-control(type='number',required name='kod' placeholder='mahsulot shtrix kodini kiriting')
+
         .form-group
             label.control-label.col-sm-2(for='price') Mahsulot narxi:
             .col-sm-8
@@ -28,7 +33,9 @@ block content
             .col-sm-offset-2.col-sm-10
                 button.btn.btn-default(type='submit') Kiritish
 append javascripts
-    script. 
+    script.
+        var data = !{JSON.stringify(items.sklad)};
         var token = !{JSON.stringify(token)};
     script(src="/javascripts/token.js")                
+    script(src="/javascripts/update_branch_item.js")
 

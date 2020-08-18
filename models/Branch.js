@@ -16,7 +16,8 @@ const branchSchema = mongoose.Schema({
            unique:false
        },
        amount:Number,
-       price:Number
+       price:Number,
+       kod:Number
     }],
     desc:{
         type:String,

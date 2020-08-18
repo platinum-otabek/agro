@@ -8,8 +8,10 @@ block content
                 th  Mahsulot nomi
                 th  Mahsulot miqdori   
                 th  Mahsulot narxi   
+                th  Mahsulot shtrix
         each item in items.sklad
             tr
                 td= item.name 
                 td= item.amount.toFixed(2)   
-                td= item.price   
+                td= item.price
+                td= item.kod

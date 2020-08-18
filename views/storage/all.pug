@@ -1,0 +1,39 @@
+extends ../layout 
+block content
+    div 
+        a.btn.btn-primary(href="/storage/create") Yangi partiyani kiritish
+        input#filterTable(type="text")
+    table#tableItems.table.table-bordered.table-striped.mb-0
+        thead
+            tr
+                th(scope='col') #
+                th(scope='col') Ismi
+                th(scope='col') Telefon raqami
+                th(scope='col') Hudud
+                th(scope='col') Jami
+                th(scope='col') Qarzdorlik
+                th(scope='col') Qolgan qarzdorlik
+                th(scope='col') Olingan mahsulotlar
+                th(scope='col') Kun
+                th(scope='col') O`zgartirsh
+        each storage,index in storages
+            tbody
+                tr#passport_id
+                    td= index+1
+                    td= storage.name
+                    td= storage.number
+                    td= storage.hudud
+                    td.numbers= storage.allsum
+                    td.numbers= storage.debtsum
+                    td(id= storage._id).numbers
+                    td= storage.items
+                    td= storage.createdAt
+                    td 
+                        a.btn.btn-warning.m-2(href="/storage/update/"+storage._id) O`zgartirish
+
+append javascripts
+    script. 
+        var storages = !{JSON.stringify(storages)};
+    script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js")
+    script(src="/javascripts/digit.js")
+    script(src="/javascripts/storage.js")
