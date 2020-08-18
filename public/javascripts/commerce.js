@@ -37,7 +37,7 @@ function validateForm() {
       let allAddedItems =  allAddedItemsForPrinting();
        $.ajax({
          type: 'post',
-         url: 'http://print.xyz/example/interface/windows-usb.php',
+         url: 'http://escpos-php-development/example/interface/windows-usb.php',
          data: {
            argv : allAddedItems,
          },
