@@ -29,7 +29,7 @@ router.post('/create', eAdmin,verifyToken,async(req, res, next)=> {
   let {name,amount,price} = req.body;
   let shtrix_id = req.body.shtrix_id || randomize('0',10);
   await Branch.find({'sklad.name':name,'name':req.user.hudud},(err,item)=>{
-    console.log('hudud:' + req.user.hudud);
+
     if(item.length !=0 ){
       req.flash('danger','Mahsulot avval kiritilgan iltimos bazadan tekshiring');
       res.redirect('/branch/item/create');
@@ -95,8 +95,10 @@ router.post('/update',eAdmin, async(req, res, next)=> {
 }
   else{
       await Branch.updateOne({'sklad.name':name,name:req.user.hudud},{$inc:{'sklad.$.amount': changingAmount }},(err,item)=>{
-        if(err)
-          console.log(err);
+        if(err){
+            req.flash('danger','xatolik');
+            res.redirect('/branch/item/all');
+        }
         res.redirect('/branch/item/update');
       })
   }

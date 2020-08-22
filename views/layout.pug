@@ -60,7 +60,7 @@ html(lang='en')
                   span.caret
                 ul.dropdown-menu
                   li
-                    a(href='/expense/show')|Xarajatlar
+                    a(href='/expense/show') Xarajatlar
                   li
                     a(href='/expense/create') Xarajat qo`shish
             ul.nav.navbar-nav.mr-auto
@@ -73,13 +73,22 @@ html(lang='en')
                     a(href='/storage/all') Hamma partiyalarni ko`rish
                   li
                     a(href='/storage/create') Partiya  qo`shish
+            ul.nav.navbar-nav.mr-auto
+              li.nav-item.dropdown
+                a#navbarDropdown.nav-link.dropdown-toggle(href='/return', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                  | Возврат
+                  span.caret
+                ul.dropdown-menu
+                  li
+                    a(href='/return') Возврат (tovarni qaytarish)
+
             li
               a(href='#') +998946393335(Otabek)
           ul.nav.navbar-nav.navbar-right  
             if user
               if user.status == 'super' || user.status == 'king'         
                 li
-                  a(href='/branch/all')|Filiallar
+                  a(href='/branch/all') Filiallar
                 li
                   a(href='/user/all')|Ishchilar 
                 li

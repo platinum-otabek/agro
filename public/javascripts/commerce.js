@@ -68,15 +68,12 @@ function allAddedItemsForPrinting(){
 }
 $(document).on('keypress',function(e) {
   if(e.which == 13){
-
     let name = $('#tableItems #items:visible .add')[0];
-    console.log(name['id']);
     addItemToTable(name['id']);
   }
 });
 // mahsulotni tablega qo`wiw uchun
 function addItemToTable(name){
-  console.log(name)
   var searchingData = data.find(element => element.name === name); // qo`wilmoqchi bo`lgan mahsulot data
   var itemDate =
       "<tr>\

@@ -22,6 +22,7 @@ const branchControlRouter = require('./routes/branch/controlBranchItem'); // fil
 const debtRouter = require('./routes/debt/controlDebt');
 const storageRouter = require('./routes/storage/controlStorage');
 const expenseRouter = require('./routes/expense/controlExpense');
+const returnRouter = require('./routes/return/controlReturn');
 const app = express();
 
 
@@ -94,6 +95,7 @@ app.use('/commerce', commerceRouter);
 app.use('/debt', debtRouter);
 app.use('/storage', storageRouter);
 app.use('/expense', expenseRouter);
+app.use('/return', returnRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
