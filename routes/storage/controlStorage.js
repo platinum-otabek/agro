@@ -12,7 +12,7 @@ const verifyToken = require('../../middleware/verifyToken');
 
 /* GET allusers . */
 // user/all
-router.get('/all',eA, (req, res, next)=> {
+router.get('/all',eS, (req, res, next)=> {
     Storage.find({},(err,storages)=>{
         res.render('storage/all',{title:'Hamma olingan mahsulotlar',storages:storages});
     });
@@ -20,11 +20,11 @@ router.get('/all',eA, (req, res, next)=> {
 
 /* GET create debt . */
 // user/all
-router.get('/create',eA, async(req, res, next)=> {
+router.get('/create',eS, async(req, res, next)=> {
     res.render('storage/create',{title:'Qarzdorlik qo`shish',token:global.token});
 
   });
-router.post('/create',eA,verifyToken,(req,res,next)=>{
+router.post('/create',eS,verifyToken,(req,res,next)=>{
     //get time 
     const utc = new Date();
     utc.setHours( utc.getHours() + 5);
@@ -55,7 +55,7 @@ router.post('/create',eA,verifyToken,(req,res,next)=>{
 
 /* GET update debt  . */
 // debt/update/id
-router.get('/update/:id',eA, async(req, res, next)=> { 
+router.get('/update/:id',eS, async(req, res, next)=> {
     Storage.findById(req.params.id,(err,historyStorages)=>{
         res.render('storage/update',{title:'Qarzdorlik o`zgartirish','historyStorages':historyStorages,token:global.token});
     });
@@ -63,7 +63,7 @@ router.get('/update/:id',eA, async(req, res, next)=> {
 
 /* POST update debt  . */
 // debt/update/id
-router.post('/update/:id',eA,verifyToken, (req, res, next)=> { 
+router.post('/update/:id',eS,verifyToken, (req, res, next)=> {
     //get time 
     const utc = new Date();
     utc.setHours( utc.getHours() + 5);

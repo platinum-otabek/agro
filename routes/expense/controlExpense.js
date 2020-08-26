@@ -57,6 +57,7 @@ router.get('/show',eA, async(req, res, next)=> {
 router.post('/show',eA, async(req, res, next)=> {
     let beginTime = new Date(req.body.begin); //kiriitilgan begin vaqtni boslanish
     let finishTime = new Date(req.body.finish);//kiriitilgan finish vaqtni boslanish
+
     let hudud = req.user.hudud || req.body.hudud;//hudud
     let allExpenses = 0;
     let price =0;
