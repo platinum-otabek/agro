@@ -65,16 +65,7 @@ html(lang='en')
                     a(href='/expense/show') Xarajatlar
                   li
                     a(href='/expense/create') Xarajat qo`shish
-            ul.nav.navbar-nav.mr-auto
-              li.nav-item.dropdown
-                a#navbarDropdown.nav-link.dropdown-toggle(href='/storage/all', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                  | Kelgan partiya
-                  span.caret
-                ul.dropdown-menu
-                  li
-                    a(href='/storage/all') Hamma partiyalarni ko`rish
-                  li
-                    a(href='/storage/create') Partiya  qo`shish
+
             ul.nav.navbar-nav.mr-auto
               li.nav-item.dropdown
                 a#navbarDropdown.nav-link.dropdown-toggle(href='/return', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
@@ -95,6 +86,16 @@ html(lang='en')
                   a(href='/user/all')|Ishchilar 
                 li
                   a(href='/item/all')|Bot mahsulotlar  
+                ul.nav.navbar-nav.mr-auto
+                  li.nav-item.dropdown
+                    a#navbarDropdown.nav-link.dropdown-toggle(href='/storage/all', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                      | Kelgan partiya
+                      span.caret
+                    ul.dropdown-menu
+                      li
+                        a(href='/storage/all') Hamma partiyalarni ko`rish
+                      li
+                        a(href='/storage/create') Partiya  qo`shish
               li
                 a(href='#')|#{user.name} (#{user.hudud})   
               li
