@@ -91,7 +91,7 @@ router.post('/',eAdmin,verifyToken ,async (req, res, next) => {
 });
 
 router.get('/show',eA,async(req,res,next)=>{
-  branches = await Branch.find({},'name');
+  let branches = await Branch.find({},'name');
   res.render('commerce/show',{title:'Savdoni ko`rsatish',branches:branches});
 });
 

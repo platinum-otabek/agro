@@ -16,7 +16,7 @@ const passport = require('passport');
 const userRouter = require('./routes/user/controleUser');
 const systemRouter = require('./routes/system/system');
 const itemRouter = require('./routes/item/controlItem');
-const branchRouter = require('./routes/branch/controlBranch');
+const branchRouter = require('./routes/branch/controlBranch'); 
 const commerceRouter = require('./routes/commerce/controlCommerce');
 const branchControlRouter = require('./routes/branch/controlBranchItem'); // filialdagi mahsulot
 const debtRouter = require('./routes/debt/controlDebt');
@@ -90,7 +90,7 @@ app.get('*',(req,res,next)=>{
 app.use('/user', userRouter);
 app.use('/', systemRouter);
 app.use('/item', itemRouter);
-app.use('/branch', branchRouter); 
+app.use('/branch', branchRouter);
 app.use('/branch/item', branchControlRouter);
 app.use('/commerce', commerceRouter);
 app.use('/debt', debtRouter);

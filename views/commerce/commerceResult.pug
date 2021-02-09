@@ -4,15 +4,15 @@ block content
     table.tableItems.table.table-bordered.table-striped.mb-4
         thead
             tr
-                th(scope='col')|#
-                th(scope='col')|Sum
-                th(scope='col')|Naqd
-                th(scope='col')|Terminal
-                th(scope='col')|Перечесления
-                th(scope='col')|Discount
-                th(scope='col')|Qarzdorlik
-                th(scope='col')|Mahsulotlar
-                th(scope='col')|Date
+                th(scope='col') #
+                th(scope='col') Sum
+                th(scope='col') Naqd
+                th(scope='col') Terminal
+                th(scope='col') Перечесления
+                th(scope='col') Discount
+                th(scope='col') Qarzdorlik
+                th(scope='col') Mahsulotlar
+                th(scope='col') Date
         tbody        
         each commerce,index in commerces
             tr
@@ -21,12 +21,14 @@ block content
                 td(class='naqd numbers')= commerce.naqd 
                 td(class='terminal numbers')= commerce.terminal 
                 td(class='transferMoney numbers')= commerce.transferMoney 
-                td.numbers= commerce.discount 
-                td.numbers= commerce.debt 
+                td(class='discount numbers')= commerce.discount
+                td(class='debt numbers')= commerce.debt
                 td= commerce.items 
                 td= commerce.createdAt  
     p.allSum.numbers
     p.allTerminal.numbers
     p.allTransferMoney.numbers
+    p.allDiscount.numbers
+    p.allDebt.numbers
 append javascripts
-    script(src="/javascripts/digit.js")
+    script(src="/javascripts/commerce/commerseResult.js")
