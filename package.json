@@ -28,7 +28,7 @@
     "node-telegram-bot-api": "^0.50.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
-    "pug": "2.0.0-beta11",
+    "pug": "3.0.1",
     "randomatic": "^3.1.1",
     "telegraf": "^3.38.0",
     "uniqid": "^5.2.0"
